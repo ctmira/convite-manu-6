@@ -1,0 +1,404 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite de Aniversário da Manuela</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Nunito:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff, #fff0f7);
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        
+        .card {
+            background: linear-gradient(135deg, #a5d8ff, #ffc8dd);
+            border-radius: 24px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.15;
+            z-index: 0;
+            background-image: url("https://img.elo7.com.br/product/zoom/54794CB/painel-redondo-stitch-painel-infantil.jpg?_gl=1*18bbyqm*_gcl_aw*R0NMLjE3NDc2MTIwOTIuQ2owS0NRandpcWJCQmhDQUFSSXNBSlNmWmtZdDYyNndHcDVBN2hpdnlaYXBjM0VXX0tUQ0Z0TXZFUndpY24wQ0ljZFJYcWxvcXNIVThnWWFBaHllRUFMd193Y0I.*_gcl_au*MTA5MzY1MTcyNy4xNzQ3NjEyMDky*_ga*MTAyNzk0MDQ2My4xNzQ3NjEyMDky*_ga_22YVRK2WCW*czE3NDc2MTIwOTIkbzEkZzAkdDE3NDc2MTIwOTIkajYwJGwwJGgxMjA1NzYxMzg3JGRhTDk2eUl6Vm1ycVIwUE9uLWd4MmdrS1FCOWhUeXJlWm5B");
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .title {
+            font-family: 'Bubblegum Sans', cursive;
+            color: #0066cc;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+        }
+        
+        .subtitle {
+            font-family: 'Bubblegum Sans', cursive;
+            color: #ff66aa;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+            animation: fall 5s ease-out infinite;
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .character-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .stitch, .angel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: all 0.5s ease;
+        }
+        
+        .stitch:hover, .angel:hover {
+            transform: scale(1.1);
+        }
+        
+        .stitch-animated {
+            animation: stitch-dance 2s infinite;
+        }
+        
+        @keyframes stitch-dance {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(-5deg); }
+            50% { transform: translateY(0) rotate(0deg); }
+            75% { transform: translateY(-10px) rotate(5deg); }
+        }
+        
+        .angel-animated {
+            animation: angel-dance 2s infinite;
+        }
+        
+        @keyframes angel-dance {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(5deg); }
+            50% { transform: translateY(0) rotate(0deg); }
+            75% { transform: translateY(-10px) rotate(-5deg); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .details {
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #0066cc, #ff66aa);
+            color: white;
+            font-weight: bold;
+            border-radius: 50px;
+            padding: 12px 24px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .hearts {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .heart {
+            position: absolute;
+            animation: float-heart 3s ease-in forwards;
+        }
+        
+        @keyframes float-heart {
+            0% {
+                transform: translateY(0) scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4">
+    <div class="card w-full max-w-lg p-6 md:p-8" id="birthdayCard">
+        <!-- Background with Stitch and Angel -->
+        <div class="card-background"></div>
+        
+        <!-- Confetti -->
+        <div id="confetti-container"></div>
+        
+        <!-- Hearts container -->
+        <div id="hearts-container" class="hearts"></div>
+        
+        <!-- Card Content -->
+        <div class="flex flex-col items-center text-center relative z-10">
+            <!-- Characters -->
+            <div class="flex justify-center items-center gap-4 mb-4">
+                <!-- Stitch Character -->
+                <div class="character-container" id="stitch-container">
+					<img src="https://raw.githubusercontent.com/ctmira/ctmira.github.io/refs/heads/main/img/stitch-transparent.gif" alt="Stitch animado" />
+                    <!-- 
+					<svg class="stitch" viewBox="0 0 200 200" onclick="animateStitch()">
+                        <!-- Stitch Body --
+                        <ellipse cx="100" cy="120" rx="50" ry="45" fill="#4169E1" />
+                        <!-- Stitch Face --
+                        <ellipse cx="100" cy="90" rx="40" ry="35" fill="#6495ED" />
+                        <!-- Stitch Ears --
+                        <path d="M65 60 Q 70 30 85 55" fill="#4169E1" stroke="#4169E1" stroke-width="2" />
+                        <path d="M135 60 Q 130 30 115 55" fill="#4169E1" stroke="#4169E1" stroke-width="2" />
+                        <!-- Stitch Eyes --
+                        <ellipse cx="85" cy="80" rx="12" ry="15" fill="white" />
+                        <ellipse cx="115" cy="80" rx="12" ry="15" fill="white" />
+                        <ellipse cx="85" cy="80" rx="6" ry="9" fill="black" />
+                        <ellipse cx="115" cy="80" rx="6" ry="9" fill="black" />
+                        <!-- Stitch Nose --
+                        <ellipse cx="100" cy="95" rx="8" ry="6" fill="#000033" />
+                        <!-- Stitch Mouth --
+                        <path d="M80 110 Q 100 125 120 110" fill="none" stroke="#000033" stroke-width="3" />
+                        <!-- Stitch Arms --
+                        <path d="M60 120 Q 40 140 50 160" fill="#4169E1" stroke="#4169E1" stroke-width="2" />
+                        <path d="M140 120 Q 160 140 150 160" fill="#4169E1" stroke="#4169E1" stroke-width="2" />
+                        <!-- Stitch Legs --
+                        <path d="M80 160 Q 75 180 65 185" fill="#4169E1" stroke="#4169E1" stroke-width="2" />
+                        <path d="M120 160 Q 125 180 135 185" fill="#4169E1" stroke="#4169E1" stroke-width="2" />
+                    </svg>
+					-->
+                </div>
+                
+                <!-- Angel Character -->
+                <div class="character-container" id="angel-container">
+					<img src="https://raw.githubusercontent.com/ctmira/ctmira.github.io/refs/heads/main/img/angel-transparent.gif" alt="Stitch animado" />
+                    <!--
+					<svg class="angel" viewBox="0 0 200 200" onclick="animateAngel()">
+                        <!-- Angel Body --
+                        <ellipse cx="100" cy="120" rx="45" ry="40" fill="#FF69B4" />
+                        <!-- Angel Face --
+                        <ellipse cx="100" cy="90" rx="35" ry="32" fill="#FFB6C1" />
+                        <!-- Angel Ears --
+                        <path d="M70 60 Q 75 30 90 55" fill="#FF69B4" stroke="#FF69B4" stroke-width="2" />
+                        <path d="M130 60 Q 125 30 110 55" fill="#FF69B4" stroke="#FF69B4" stroke-width="2" />
+                        <!-- Angel Eyes --
+                        <ellipse cx="85" cy="80" rx="10" ry="12" fill="white" />
+                        <ellipse cx="115" cy="80" rx="10" ry="12" fill="white" />
+                        <ellipse cx="85" cy="80" rx="5" ry="7" fill="black" />
+                        <ellipse cx="115" cy="80" rx="5" ry="7" fill="black" />
+                        <!-- Angel Nose --
+                        <ellipse cx="100" cy="95" rx="6" ry="4" fill="#FF1493" />
+                        <!-- Angel Mouth --
+                        <path d="M85 105 Q 100 115 115 105" fill="none" stroke="#FF1493" stroke-width="2" />
+                        <!-- Angel Antenna --
+                        <path d="M100 58 Q 100 40 105 30" fill="none" stroke="#FF69B4" stroke-width="3" />
+                        <circle cx="105" cy="30" r="5" fill="#FF69B4" />
+                        <!-- Angel Arms --
+                        <path d="M65 120 Q 45 130 55 150" fill="#FF69B4" stroke="#FF69B4" stroke-width="2" />
+                        <path d="M135 120 Q 155 130 145 150" fill="#FF69B4" stroke="#FF69B4" stroke-width="2" />
+                        <!-- Angel Legs --
+                        <path d="M85 155 Q 80 175 70 180" fill="#FF69B4" stroke="#FF69B4" stroke-width="2" />
+                        <path d="M115 155 Q 120 175 130 180" fill="#FF69B4" stroke="#FF69B4" stroke-width="2" />
+                    </svg>
+					-->
+                </div>
+            </div>
+            
+            <h1 class="title text-4xl md:text-5xl mb-2">Manuela</h1>
+            <h2 class="subtitle text-2xl md:text-3xl mb-6">Convite de Aniversário!</h2>
+            
+            <div class="details p-5 mb-6 w-full pulse">
+                <p class="text-lg mb-2">Venha comemorar comigo!</p>
+                <p class="text-xl font-bold mb-1">22 de Maio</p>
+                <p class="text-lg mb-1">às 19:30</p>
+                <p class="text-lg">Na casa da vó Neide</p>
+            </div>
+            
+            <button class="btn" id="confirmBtn">Confirmar Presença</button>
+        </div>
+    </div>
+
+    <script>
+        // Create confetti
+        function createConfetti() {
+            const colors = ['#4169E1', '#FF69B4', '#FFD700', '#7FFFD4', '#FF6347'];
+            const container = document.getElementById('confetti-container');
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = Math.random() * 10 + 5 + 'px';
+                confetti.style.height = Math.random() * 10 + 5 + 'px';
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                confetti.style.animationDelay = Math.random() * 5 + 's';
+                confetti.style.animationDuration = Math.random() * 3 + 3 + 's';
+                
+                container.appendChild(confetti);
+            }
+        }
+        
+        // Create more confetti on demand
+        function createMoreConfetti(amount) {
+            const colors = ['#4169E1', '#FF69B4', '#FFD700', '#7FFFD4', '#FF6347'];
+            const container = document.getElementById('confetti-container');
+            
+            for (let i = 0; i < amount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = Math.random() * 10 + 5 + 'px';
+                confetti.style.height = Math.random() * 10 + 5 + 'px';
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                
+                container.appendChild(confetti);
+                
+                setTimeout(() => {
+                    container.removeChild(confetti);
+                }, 5000);
+            }
+        }
+        
+        // Create floating hearts
+        function createHearts(x, y, amount) {
+            const heartsContainer = document.getElementById('hearts-container');
+            heartsContainer.style.left = x + 'px';
+            heartsContainer.style.top = y + 'px';
+            heartsContainer.style.opacity = '1';
+            
+            for (let i = 0; i < amount; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.style.left = (Math.random() * 60 - 30) + 'px';
+                heart.style.top = (Math.random() * 20) + 'px';
+                heart.innerHTML = `
+                    <svg width="20" height="20" viewBox="0 0 20 20">
+                        <path d="M10 17.8l-1.4-1.4C4.4 12.5 2 10.4 2 7.8 2 5.7 3.7 4 5.8 4c1.2 0 2.4.6 3.2 1.5C9.8 4.6 11 4 12.2 4c2.1 0 3.8 1.7 3.8 3.8 0 2.6-2.4 4.7-6.6 8.6L10 17.8z" 
+                              fill="${Math.random() > 0.5 ? '#FF69B4' : '#4169E1'}" />
+                    </svg>
+                `;
+                heart.style.animationDelay = (Math.random() * 0.5) + 's';
+                
+                heartsContainer.appendChild(heart);
+                
+                setTimeout(() => {
+                    heartsContainer.removeChild(heart);
+                }, 3000);
+            }
+            
+            setTimeout(() => {
+                heartsContainer.style.opacity = '0';
+            }, 3000);
+        }
+        
+        // Animate Stitch
+        function animateStitch() {
+            const stitch = document.querySelector('.stitch');
+            stitch.classList.add('stitch-animated');
+            
+            const rect = stitch.getBoundingClientRect();
+            createHearts(rect.left + rect.width/2, rect.top + rect.height/2, 8);
+            createMoreConfetti(10);
+            
+            setTimeout(() => {
+                stitch.classList.remove('stitch-animated');
+            }, 2000);
+        }
+        
+        // Animate Angel
+        function animateAngel() {
+            const angel = document.querySelector('.angel');
+            angel.classList.add('angel-animated');
+            
+            const rect = angel.getBoundingClientRect();
+            createHearts(rect.left + rect.width/2, rect.top + rect.height/2, 8);
+            createMoreConfetti(10);
+            
+            setTimeout(() => {
+                angel.classList.remove('angel-animated');
+            }, 2000);
+        }
+        
+        // Confirmation button
+        document.getElementById('confirmBtn').addEventListener('click', function(e) {
+            alert('Obrigado por confirmar sua presença! Manuela vai ficar muito feliz!');
+            
+            const rect = e.target.getBoundingClientRect();
+            createHearts(rect.left + rect.width/2, rect.top, 12);
+            createMoreConfetti(30);
+        });
+        
+        // Initialize
+        window.onload = function() {
+            createConfetti();
+            
+            // Initial animation
+            setTimeout(() => {
+                animateStitch();
+                setTimeout(() => {
+                    animateAngel();
+                }, 1000);
+            }, 1000);
+        };
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'941f48baa04227ff',t:'MTc0NzYxMjUxMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
